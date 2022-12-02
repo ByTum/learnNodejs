@@ -46,9 +46,18 @@ const replaceTemplate = (temp, product) => {
   return output;
 };
 
-const tempOverview = fs.readFileSync(`${__dirname}/templates/template-overview.html`, "utf-8");
-const tempCard = fs.readFileSync(`${__dirname}/templates/template-card.html`, "utf-8");
-const tempProduct = fs.readFileSync(`${__dirname}/templates/template-product.html`, "utf-8");
+const tempOverview = fs.readFileSync(
+  `${__dirname}/templates/template-overview.html`,
+  "utf-8"
+);
+const tempCard = fs.readFileSync(
+  `${__dirname}/templates/template-card.html`,
+  "utf-8"
+);
+const tempProduct = fs.readFileSync(
+  `${__dirname}/templates/template-product.html`,
+  "utf-8"
+);
 
 const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, "utf-8");
 const dataobj = JSON.parse(data);
@@ -60,7 +69,9 @@ const server = http.createServer((req, res) => {
   if (pathname === "/" || pathname === "/overview") {
     res.writeHead(200, { "Content-type": "text/html" });
 
-    const cardsHtml = dataobj.map((el) => replaceTemplate(tempCard, el)).join("");
+    const cardsHtml = dataobj
+      .map((el) => replaceTemplate(tempCard, el))
+      .join("");
     const output = tempOverview.replace("{%PRODUCT_CARDS%}", cardsHtml);
     res.end(output);
 
