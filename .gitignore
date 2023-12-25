@@ -50,4 +50,5 @@ Thumbs.db
 node_modules
 ../../starter/node_modules
 ../../../node_modules
+../../node_modules
 node_modules/
