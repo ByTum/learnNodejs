@@ -4,7 +4,7 @@
   "description": "Learning node, express",
   "main": "app.js",
   "scripts": {
-    "start:dev": "nodemon server.js",
+    "start": "nodemon server.js",
     "start:prod": "NODE_ENV=production nodemon server.js"
   },
   "author": "tum",
@@ -14,7 +14,8 @@
     "express": "^4.18.2",
     "mongoose": "^5.13.21",
     "morgan": "^1.10.0",
-    "nodemon": "^3.0.2"
+    "nodemon": "^3.0.2",
+    "slugify": "^1.6.6"
   },
   "devDependencies": {
     "eslint": "^8.34.0",
