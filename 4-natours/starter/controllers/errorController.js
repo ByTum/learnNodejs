@@ -1,3 +1,10 @@
+const AppError = require('../utils/appError');
+
+const handleCastErrorDB = (err) => {
+  const message = `Invalid ${err.path}: ${err.value}.`;
+  return new AppError(message, 400);
+};
+
 const sendErrorDev = (err, res) => {
   res.status(err.statusCode).json({
     status: err.status,
@@ -8,7 +15,8 @@ const sendErrorDev = (err, res) => {
 };
 
 const sendErrorProd = (err, res) => {
-  // Operational, trusted error: send message to cliend
+  // Operational, trusted error: send message to client
+  // console.log(err.isOperational);
   if (err.isOperational) {
     res.status(err.statusCode).json({
       status: err.status,
@@ -18,7 +26,7 @@ const sendErrorProd = (err, res) => {
     // Programming or other unknown error: don't lead error details
   } else {
     // 1) Log error
-    console.log('ERROR 💥', err);
+    // console.log('ERROR 💥', err);
 
     // 2) Send generic message
     res.status(500).json({
@@ -36,6 +44,11 @@ module.exports = (err, req, res, next) => {
   if (process.env.NODE_ENV === 'development') {
     sendErrorDev(err, res);
   } else if (process.env.NODE_ENV === 'production') {
-    sendErrorProd(err, res);
+    // when use Spread Operator get error don't know why ???
+    // let error = {...err};
+    let error = err;
+
+    if (error.name === 'CastError') error = handleCastErrorDB(error);
+    sendErrorProd(error, res);
   }
 };
