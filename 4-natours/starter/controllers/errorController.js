@@ -38,7 +38,7 @@ const sendErrorProd = (err, res) => {
     // Programming or other unknown error: don't lead error details
   } else {
     // 1) Log error
-    // console.log('ERROR 💥', err);
+    console.log('ERROR 💥', err);
 
     // 2) Send generic message
     res.status(500).json({
