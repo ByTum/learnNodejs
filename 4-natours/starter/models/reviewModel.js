@@ -20,7 +20,6 @@ const reviewSchema = new mongoose.Schema(
       ref: 'Tour',
       required: [true, 'Review must belong to a tour.'],
     },
-
     user: {
       type: mongoose.Schema.ObjectId,
       ref: 'User',

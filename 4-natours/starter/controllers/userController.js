@@ -11,18 +11,18 @@ const filterObj = (obj, ...allowedFields) => {
   return newObj;
 };
 
-exports.getAllusers = catchAsync(async (req, res, next) => {
-  const users = await User.find();
-  // send response
-  res.status(200).json({
-    status: 'success',
-    // requestedAt: req.requestTime,
-    results: users.length,
-    data: {
-      users,
-    },
-  });
-});
+exports.getAllusers = factory.getAll(User);
+// exports.getAllusers = catchAsync(async (req, res, next) => {
+//   const users = await User.find();
+//   // send response
+//   res.status(200).json({
+//     status: 'success',
+//     results: users.length,
+//     data: {
+//       users,
+//     },
+//   });
+// });
 
 exports.updateMe = catchAsync(async (req, res, next) => {
   // 1. create error if user POSTs password data
@@ -61,16 +61,18 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'This route is not yet defined!',
-  });
-};
+exports.getUser = factory.getOne(User);
+// exports.getUser = (req, res) => {
+//   res.status(500).json({
+//     status: 'error',
+//     message: 'This route is not yet defined!',
+//   });
+// };
+
 exports.createUser = (req, res) => {
   res.status(500).json({
     status: 'error',
-    message: 'This route is not yet defined!',
+    message: 'This route is not defined! Please use /signup instead',
   });
 };
 
